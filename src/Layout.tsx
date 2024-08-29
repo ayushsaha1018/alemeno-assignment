@@ -1,8 +1,9 @@
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import { scrollToTop } from "./lib/utils";
 import authService from "./services/AuthService";
 import { login, logout } from "./store/authSlice";
 import { fetchCourses, fetchEnrolledCourses } from "./store/coursesSlice";
@@ -10,6 +11,7 @@ import { AppDispatch, RootState } from "./store/store";
 
 function Layout() {
   const dispatch: AppDispatch = useDispatch();
+  const location = useLocation();
   const { status } = useSelector((state: RootState) => state.courses);
 
   useEffect(() => {
@@ -29,6 +31,10 @@ function Layout() {
       dispatch(fetchCourses());
     }
   }, [dispatch, status]);
+
+  useEffect(() => {
+    scrollToTop(0);
+  }, [location.pathname]);
 
   return (
     <>
