@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Dialog,
   DialogContent,
@@ -110,10 +110,6 @@ const Navbar = () => {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="icon" className="rounded-full">
                     <Avatar className="h-8 w-8">
-                      <AvatarImage
-                        src="/placeholder-user.jpg"
-                        alt="@username"
-                      />
                       <AvatarFallback>JD</AvatarFallback>
                     </Avatar>
                   </Button>

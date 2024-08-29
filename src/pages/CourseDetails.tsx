@@ -4,7 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import enrollmentService from "@/services/EnrollementService";
@@ -84,7 +84,6 @@ export default function CourseDetails() {
             <h1 className="text-3xl font-bold">{selectedCourse.name}</h1>
             <div className="flex items-center gap-2">
               <Avatar className="w-8 h-8">
-                <AvatarImage src="/placeholder-user.jpg" alt="@username" />
                 <AvatarFallback>
                   {selectedCourse.instructor
                     .split(" ")
