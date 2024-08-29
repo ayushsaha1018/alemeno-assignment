@@ -73,7 +73,11 @@ const Navbar = () => {
           if (userData) dispatch(login(userData));
           navigate("/");
         }
-      } catch (error) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (error: any) {
+        const msg = error?.message;
+        if (msg.includes(":")) toast.error(msg.split(":")[1]);
+        else toast.error(msg);
         console.log(error);
       }
     }

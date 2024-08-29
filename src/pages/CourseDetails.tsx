@@ -10,6 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import enrollmentService from "@/services/EnrollementService";
 import { fetchEnrolledCourses, selectCourseById } from "@/store/coursesSlice";
 import { AppDispatch, RootState } from "@/store/store";
+import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +19,7 @@ import { useParams } from "react-router-dom";
 export default function CourseDetails() {
   const params = useParams();
   const [isEnrolled, setIsEnrolled] = useState(false);
+  const [loading, setLoading] = useState(false);
   const dispatch: AppDispatch = useDispatch();
   const { status, selectedCourse, enrolledCourses } = useSelector(
     (state: RootState) => state.courses
@@ -56,7 +58,7 @@ export default function CourseDetails() {
 
   const enrollUser = async () => {
     if (!authStatus) return toast.error("Please log in");
-    console.log(userData);
+    setLoading(true);
     if (userData) {
       console.log(userData?.$id);
       const res = await enrollmentService.enrollCourse(
@@ -65,8 +67,10 @@ export default function CourseDetails() {
       );
       dispatch(fetchEnrolledCourses(userData?.$id));
       setIsEnrolled(true);
+      toast.success("Enrolled Successfully");
       console.log(res);
     }
+    setLoading(false);
   };
 
   return (
@@ -164,11 +168,12 @@ export default function CourseDetails() {
                 </p>
               </div>
               <Button
-                disabled={isEnrolled}
+                disabled={isEnrolled || loading}
                 onClick={() => enrollUser()}
                 className="w-full"
               >
-                {isEnrolled ? "Already Enrolled" : "Enroll"}
+                {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                {isEnrolled ? "Enrolled" : "Enroll"}
               </Button>
             </CardContent>
           </Card>
