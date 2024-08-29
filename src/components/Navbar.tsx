@@ -57,6 +57,7 @@ const Navbar = () => {
           console.log(userData);
           if (userData) dispatch(login(userData));
           navigate("/");
+          toast.success("Logged in successfully");
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
@@ -72,6 +73,7 @@ const Navbar = () => {
           const userData = await authService.getCurrentUser();
           if (userData) dispatch(login(userData));
           navigate("/");
+          toast.success("Logged in successfully");
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (error: any) {
